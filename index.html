@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jillian, Will You Be My Valentine?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Space+Mono&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --red: #e63946;
+            --dark: #1d1d1d;
+            --cream: #f1faee;
+            --gold: #ffd700;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--cream);
+            font-family: 'Space Mono', monospace;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .rivalry-header {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 8vw, 4rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--red), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 3rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .quote-box {
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border: 2px solid var(--red);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+            box-shadow: 0 0 30px rgba(230, 57, 70, 0.3);
+        }
+
+        .quote-box::before {
+            content: '❝';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 3rem;
+            color: var(--red);
+        }
+
+        .quote-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .speaker {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .arrow {
+            font-size: 3rem;
+            color: var(--red);
+            margin: 2rem 0;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+        }
+
+        .my-quote-box {
+            background: linear-gradient(145deg, #3a1a1a, #2a0a0a);
+            border: 3px solid var(--gold);
+            border-radius: 8px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            position: relative;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .my-quote-box::before {
+            content: '💘';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+        }
+
+        .my-quote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 5vw, 2.2rem);
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .name {
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-family: 'Space Mono', monospace;
+            font-size: 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-yes {
+            background: var(--red);
+            color: white;
+            box-shadow: 0 4px 20px rgba(230, 57, 70, 0.5);
+        }
+
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(230, 57, 70, 0.7);
+        }
+
+        .btn-no {
+            background: transparent;
+            color: #666;
+            border: 1px solid #444;
+            font-size: 0.8rem;
+            padding: 0.8rem 1.5rem;
+        }
+
+        .btn-no:hover {
+            transform: translateX(100px);
+        }
+
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: float 6s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { 
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .celebration {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .celebration.active {
+            display: flex;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .celebration-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 10vw, 5rem);
+            background: linear-gradient(135deg, var(--red), var(--gold), var(--red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: celebrate 0.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes celebrate {
+            from { transform: scale(1) rotate(-2deg); }
+            to { transform: scale(1.05) rotate(2deg); }
+        }
+
+        .celebration-sub {
+            margin-top: 1rem;
+            font-size: 1.2rem;
+            color: var(--cream);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s ease-in-out infinite;
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        footer {
+            margin-top: 4rem;
+            font-size: 0.7rem;
+            color: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <h1 class="rivalry-header">A Heated Rivalry</h1>
+        <p class="subtitle">The most important question of the season</p>
+
+        <div class="quote-box">
+            <p class="quote-label">The Original — Shane Gillis</p>
+            <p class="quote-text">
+                "Will you come to my cottage this summer?"<br>
+                "Don't go to Russia. Come to my house. We'll have so much fun."
+            </p>
+            <p class="speaker">— to Ilya, probably</p>
+        </div>
+
+        <div class="arrow">↓</div>
+
+        <div class="my-quote-box">
+            <p class="quote-label">My Version — To You</p>
+            <p class="my-quote">
+                "<span class="name">Jillian</span>, will you come to my <span class="highlight">heart</span> this Valentine's?"<br><br>
+                "Don't go to <span class="highlight">anyone else</span>. Come to <span class="highlight">me</span>. We'll have <span class="highlight">so much fun</span>."
+            </p>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-yes" onclick="sayYes()">Yes! 💕</button>
+            <button class="btn btn-no" id="noBtn">No...</button>
+        </div>
+
+        <footer>
+            Made with rivalry and love 🔥❤️
+        </footer>
+    </div>
+
+    <div class="celebration" id="celebration">
+        <div class="celebration-text">YES! 🎉</div>
+        <p class="celebration-sub">I knew you'd pick me over Russia 💕</p>
+    </div>
+
+    <script>
+        // Floating hearts background
+        const heartsContainer = document.getElementById('hearts');
+        const heartEmojis = ['❤️', '💕', '💘', '🔥', '✨'];
+        
+        for (let i = 0; i < 15; i++) {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 6 + 's';
+            heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+            heartsContainer.appendChild(heart);
+        }
+
+        // No button runs away
+        const noBtn = document.getElementById('noBtn');
+        noBtn.addEventListener('mouseover', function() {
+            this.style.position = 'relative';
+            this.style.left = (Math.random() - 0.5) * 200 + 'px';
+            this.style.top = (Math.random() - 0.5) * 100 + 'px';
+        });
+
+        // Yes celebration
+        function sayYes() {
+            const celebration = document.getElementById('celebration');
+            celebration.classList.add('active');
+            
+            // Add confetti
+            const colors = ['#e63946', '#ffd700', '#f1faee', '#ff69b4', '#ff1493'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                celebration.appendChild(confetti);
+            }
+        }
+    </script>
+</body>
+</html>
